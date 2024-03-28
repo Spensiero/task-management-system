@@ -1,6 +1,9 @@
 
 import React from "react";
 import Table from "./common/table";
+import { RxUpdate } from "react-icons/rx";
+import { MdOutlineDeleteOutline   } from "react-icons/md";
+import styled from "@emotion/styled";
 
   const data = [
     {
@@ -65,6 +68,16 @@ import Table from "./common/table";
     },
   ];
 
+const Button = styled.button<{ isRed?: boolean }>`
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  margin-left:20px;
+  color: ${({ isRed }) => (isRed ? "red" : "inherit")};
+`;
+
+export default function TasksTable() {
   const columns = [
     {
       accessorKey: 'title',
@@ -89,10 +102,18 @@ import Table from "./common/table";
       header: 'Assignee',
       size: 200,
       Cell: ({ cell }) => <span>{cell.getValue()}</span>,
+    },
+    {
+      header: 'Actions',
+      size: 50,
+      Cell: ({ cell }) => 
+          <>
+            <Button title="Modify" type="button" onClick={()=>{console.log(cell.row.original)}}><RxUpdate/></Button>
+            <Button title="Delete" type="button" isRed={true} onClick={()=>{console.log(cell.row.original)}}><MdOutlineDeleteOutline  /></Button>
+          </>,
     }
   ];
 
-export default function TasksTable() {
   return (
     <Table data={data} columns={columns}/>
   );
