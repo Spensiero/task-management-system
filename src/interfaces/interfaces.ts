@@ -1,9 +1,10 @@
 import { ReactEventHandler, ReactNode } from "react";
 interface ITask {
-    taskType: string,
-    title: string,
-    status: string,
-    assignee: string,
+    id: number;
+    taskType: string;
+    title: string;
+    status: string;
+    assignee: string;
 }
 interface IColumn {
     accessorKey: string;
@@ -21,5 +22,19 @@ export interface ITable {
 export interface IAddButton {
     title: string;
     label: string;
-    onClick: ReactEventHandler
+    onClick: ReactEventHandler;
 }
+type TActions = {
+ type: string;
+ label: string;
+}
+export interface IModal {
+    children: ReactNode;
+    actionType: string; 
+    arrActions: TActions[];
+    onCloseModal: ()=> void;
+}
+export interface ITasksTable {
+    setModalAndAction: (isOpen: boolean, actionType: string, dataId?: number)=> void;
+  }
+  

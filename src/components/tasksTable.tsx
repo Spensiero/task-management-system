@@ -2,68 +2,81 @@
 import React from "react";
 import Table from "./common/table";
 import { RxUpdate } from "react-icons/rx";
-import { MdOutlineDeleteOutline   } from "react-icons/md";
+import { MdOutlineDeleteOutline, MdOutlineTask, MdOutlineDoneOutline, MdOutlineAssistantPhoto } from "react-icons/md";
+import { IoIosBug } from "react-icons/io";
+import { GiProgression } from "react-icons/gi";
 import styled from "@emotion/styled";
+import { ITasksTable } from "@/interfaces/interfaces";
 
   const data = [
     {
-        taskType: "BUG",
+        id:1,
+        taskType: "B",
         title: "Title 1",
-        status: "Progress",
+        status: "P",
         assignee: "Pippo"
     },
     {
-        taskType: "TASK",
+        id:2,
+        taskType: "T",
         title: "Title 2",
-        status: "Done",
+        status: "D",
         assignee: "Pluto"
     },
     {
-        taskType: "BUG",
+        id:3,
+        taskType: "B",
         title: "Title 3",
-        status: "Progress",
+        status: "P",
         assignee: "Pippo"
     },
     {
-        taskType: "TASK",
+        id:4,
+        taskType: "T",
         title: "Title 4",
-        status: "Done",
+        status: "T",
         assignee: "Pluto"
     },
     {
-        taskType: "BUG",
+        id:5,
+        taskType: "B",
         title: "Title 5",
-        status: "Progress",
+        status: "T",
         assignee: "Pippo"
     },
     {
+        id:6,
         taskType: "TASK",
         title: "Title 6",
-        status: "Done",
+        status: "D",
         assignee: "Pluto"
     },
     {
-        taskType: "BUG",
+        id:7,
+        taskType: "B",
         title: "Title 7",
-        status: "Progress",
+        status: "P",
         assignee: "Pippo"
     },
     {
-        taskType: "TASK",
+        id:8,
+        taskType: "T",
         title: "Title 8",
-        status: "Done",
+        status: "D",
         assignee: "Pluto"
     },
     {
-        taskType: "BUG",
+        id:9,
+        taskType: "B",
         title: "Title 9",
-        status: "Progress",
+        status: "T",
         assignee: "Pippo"
     },
     {
-        taskType: "TASK",
+        id:10,
+        taskType: "T",
         title: "Title 10",
-        status: "Done",
+        status: "D",
         assignee: "Pluto"
     },
   ];
@@ -77,7 +90,7 @@ const Button = styled.button<{ isRed?: boolean }>`
   color: ${({ isRed }) => (isRed ? "red" : "inherit")};
 `;
 
-export default function TasksTable() {
+export default function TasksTable({setModalAndAction}: ITasksTable) {
   const columns = [
     {
       accessorKey: 'title',
@@ -89,13 +102,44 @@ export default function TasksTable() {
       accessorKey: 'taskType',
       header: 'Type',
       size: 70,
-      Cell: ({ cell }) => <span>{cell.getValue()}</span>,
+      Cell: ({ cell }) => {
+        let iconToShow;
+        switch (cell.row.original.taskType) {
+          case 'B':
+            iconToShow = <IoIosBug title="Bug"/>;
+            break;
+          case 'T':
+            iconToShow = <MdOutlineTask title="Task"/>;
+            break;
+          default:
+            iconToShow = <MdOutlineTask title="Task"/>;
+            break;
+        }
+        return <span>{iconToShow}</span>;
+      },
     },
     {
       accessorKey: 'status',
       header: 'Status',
       size: 70,
-      Cell: ({ cell }) => <span>{cell.getValue()}</span>,
+      Cell: ({ cell }) => {
+        let iconToShow;
+        switch (cell.row.original.status) {
+          case 'D':
+            iconToShow = <MdOutlineDoneOutline title="Done"/>;
+            break;
+          case 'T':
+            iconToShow = <MdOutlineAssistantPhoto title="To do"/>;
+            break;
+          case 'P':
+            iconToShow = <GiProgression title="Progress"/>;
+            break;
+          default:
+            iconToShow = <MdOutlineAssistantPhoto title="To do"/>;
+            break;
+        }
+        return <span>{iconToShow}</span>;
+      },
     },
     {
       accessorKey: 'assignee',
@@ -108,7 +152,7 @@ export default function TasksTable() {
       size: 50,
       Cell: ({ cell }) => 
           <>
-            <Button title="Modify" type="button" onClick={()=>{console.log(cell.row.original)}}><RxUpdate/></Button>
+            <Button title="Update" onClick={()=> setModalAndAction(true, "U", cell.row.original.id)}><RxUpdate/></Button>
             <Button title="Delete" type="button" isRed={true} onClick={()=>{console.log(cell.row.original)}}><MdOutlineDeleteOutline  /></Button>
           </>,
     }
