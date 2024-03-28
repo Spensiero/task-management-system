@@ -19,7 +19,8 @@ export default function Table({data, columns} : ITable) {
             enableColumnOrdering: true,
             enableRowSelection: true,
             enablePagination: false,
-            enableColumnResizing: true,
+            enableColumnPinning: true,
+            initialState: { columnPinning: { left: [columns[0].accessorKey] } },
             muiTableContainerProps: { sx: { maxHeight: "450px" } },
           });
           
