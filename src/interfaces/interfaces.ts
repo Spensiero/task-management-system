@@ -1,5 +1,5 @@
 import { ReactEventHandler, ReactNode } from "react";
-interface ITask {
+export interface ITask {
     id: number;
     taskType: string;
     title: string;
@@ -16,7 +16,7 @@ export interface ILayout {
     children: ReactNode;
 }
 export interface ITable {
-    data: ITask[],
+    data: ITask[]|[],
     columns: IColumn[]
 }
 export interface IAddButton {
@@ -36,5 +36,7 @@ export interface IModal {
 }
 export interface ITasksTable {
     setModalAndAction: (isOpen: boolean, actionType: string, dataId?: number)=> void;
+    data: ITask[]|[];
+    deleteTask: (id: number)=> void;
   }
   

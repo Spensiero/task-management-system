@@ -8,79 +8,6 @@ import { GiProgression } from "react-icons/gi";
 import styled from "@emotion/styled";
 import { ITasksTable } from "@/interfaces/interfaces";
 
-  const data = [
-    {
-        id:1,
-        taskType: "B",
-        title: "Title 1",
-        status: "P",
-        assignee: "Pippo"
-    },
-    {
-        id:2,
-        taskType: "T",
-        title: "Title 2",
-        status: "D",
-        assignee: "Pluto"
-    },
-    {
-        id:3,
-        taskType: "B",
-        title: "Title 3",
-        status: "P",
-        assignee: "Pippo"
-    },
-    {
-        id:4,
-        taskType: "T",
-        title: "Title 4",
-        status: "T",
-        assignee: "Pluto"
-    },
-    {
-        id:5,
-        taskType: "B",
-        title: "Title 5",
-        status: "T",
-        assignee: "Pippo"
-    },
-    {
-        id:6,
-        taskType: "TASK",
-        title: "Title 6",
-        status: "D",
-        assignee: "Pluto"
-    },
-    {
-        id:7,
-        taskType: "B",
-        title: "Title 7",
-        status: "P",
-        assignee: "Pippo"
-    },
-    {
-        id:8,
-        taskType: "T",
-        title: "Title 8",
-        status: "D",
-        assignee: "Pluto"
-    },
-    {
-        id:9,
-        taskType: "B",
-        title: "Title 9",
-        status: "T",
-        assignee: "Pippo"
-    },
-    {
-        id:10,
-        taskType: "T",
-        title: "Title 10",
-        status: "D",
-        assignee: "Pluto"
-    },
-  ];
-
 const Button = styled.button<{ isRed?: boolean }>`
   border: none;
   background: none;
@@ -90,7 +17,7 @@ const Button = styled.button<{ isRed?: boolean }>`
   color: ${({ isRed }) => (isRed ? "red" : "inherit")};
 `;
 
-export default function TasksTable({setModalAndAction}: ITasksTable) {
+export default function TasksTable({setModalAndAction, data, deleteTask}: ITasksTable) {
   const columns = [
     {
       accessorKey: 'title',
@@ -153,7 +80,7 @@ export default function TasksTable({setModalAndAction}: ITasksTable) {
       Cell: ({ cell }) => 
           <>
             <Button title="Update" onClick={()=> setModalAndAction(true, "U", cell.row.original.id)}><RxUpdate/></Button>
-            <Button title="Delete" type="button" isRed={true} onClick={()=>{console.log(cell.row.original)}}><MdOutlineDeleteOutline  /></Button>
+            <Button title="Delete" type="button" isRed={true} onClick={()=> deleteTask(cell.row.original.id)}><MdOutlineDeleteOutline  /></Button>
           </>,
     }
   ];
