@@ -1,18 +1,13 @@
 
-import React, { ReactEventHandler } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { MdOutlineAddTask } from "react-icons/md"; 
+import { IAddButton } from "@/interfaces/interfaces";
 
 const Button = styled.button`
-  margin: 20px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: inline-flex;
   background-color: #ffffff;
   color: #333333;
   border: none;
-  border-radius: 50%;
   padding: 16px;
   font-size: 24px;
   cursor: pointer;
@@ -23,10 +18,6 @@ const Button = styled.button`
     box-shadow: 0px 0px 0px 12px rgba(255, 255, 255, 0.3);
   }
 `;
-
-interface IAddButton {
-    onClick: ReactEventHandler
-}
 
 export default function AddButton({ onClick }: IAddButton) {
   return (

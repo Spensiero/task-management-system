@@ -69,21 +69,25 @@ import Table from "./common/table";
     {
       accessorKey: 'taskType',
       header: 'Type',
+      size: 150,
       Cell: ({ cell }) => <span>{cell.getValue()}</span>,
     },
     {
       accessorKey: 'title',
       header: 'Title',
+      size: 150,
       Cell: ({ cell }) => <span>{cell.getValue()}</span>,
     },
     {
       accessorKey: 'status',
       header: 'Status',
+      size: 150,
       Cell: ({ cell }) => <span>{cell.getValue()}</span>,
     },
     {
       accessorKey: 'assignee',
       header: 'Assignee',
+      size: 150,
       Cell: ({ cell }) => <span>{cell.getValue()}</span>,
     }
   ];
