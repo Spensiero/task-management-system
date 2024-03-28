@@ -19,5 +19,7 @@ export interface ITable {
     columns: IColumn[]
 }
 export interface IAddButton {
+    title: string;
+    label: string;
     onClick: ReactEventHandler
 }
