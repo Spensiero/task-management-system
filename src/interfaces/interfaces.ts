@@ -1,4 +1,4 @@
-import { ReactEventHandler, ReactNode } from "react";
+import { ElementType, ReactElement, ReactEventHandler, ReactNode } from "react";
 export interface ITask {
     id: number;
     taskType: string;
@@ -19,10 +19,15 @@ export interface ITable {
     data: ITask[]|[],
     columns: IColumn[]
 }
-export interface IAddButton {
+export interface ICommonButton {
     title: string;
     label: string;
-    onClick: ReactEventHandler;
+    icon?: ReactElement | "";
+    type?: "button" | "submit" | "reset";
+    onClick?: ReactEventHandler;
+    backgroundColor?: string;
+    shadowColorRgba?: string;
+    textColor?: string;
 }
 type TActions = {
  type: string;
@@ -38,5 +43,9 @@ export interface ITasksTable {
     setModalAndAction: (isOpen: boolean, actionType: string, dataId?: number)=> void;
     data: ITask[]|[];
     deleteTask: (id: number)=> void;
-  }
+}
+export interface ITaskForm {
+    handleSubmit: (data: ITask)=> void;
+}
+
   

@@ -32,10 +32,10 @@ export default function TasksTable({setModalAndAction, data, deleteTask}: ITasks
       Cell: ({ cell }) => {
         let iconToShow;
         switch (cell.row.original.taskType) {
-          case 'B':
+          case "B":
             iconToShow = <IoIosBug title="Bug"/>;
             break;
-          case 'T':
+          case "T":
             iconToShow = <MdOutlineTask title="Task"/>;
             break;
           default:

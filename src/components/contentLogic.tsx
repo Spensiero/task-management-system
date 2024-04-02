@@ -1,10 +1,12 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import Layout from "@/layout/layout";
-import AddButton from "./common/addButton";
+import CommonButton from "./common/commonButton";
 import TasksTable from "./tasksTable";
 import Modal from "./common/modal";
 import { ITask } from "@/interfaces/interfaces";
+import TaskForm from "./taskForm";
+import { MdOutlinePlaylistAddCircle } from "react-icons/md";
 
 let initialDataObj = [
   {
@@ -123,10 +125,30 @@ export default function ContentLogic() {
     //TODO: UPDATE DATA API CALL
   }
 
+  const handleSubmit = (task: ITask)=>{
+    switch (actionType) {
+      case "C":
+        addTask(task);
+        break;
+      case "U":
+        updateTask(task);
+        break;
+      default:
+        addTask(task);
+        break;
+    }
+  }
+
   return (
     <>
       <Layout title="TMS">
-        <AddButton title="Add Task" label="Add Task" key="firstChild" onClick={()=> setModalAndAction(true,"C")}/>
+        <CommonButton 
+          title="Add Task" 
+          label="Add Task" 
+          key="firstChild" 
+          onClick={()=> setModalAndAction(true,"C")} 
+          icon={<MdOutlinePlaylistAddCircle/>}
+        />
         <TasksTable data={data} deleteTask={deleteTask} setModalAndAction={setModalAndAction} key="secondChild"/>
       </Layout>
       {isOpen && <Modal 
@@ -134,7 +156,7 @@ export default function ContentLogic() {
                     actionType={actionType} 
                     onCloseModal={()=> setModalAndAction(false,"C")}
                   >
-                    Form
+                    <TaskForm handleSubmit={handleSubmit}/>
                   </Modal>}
     </>
   );

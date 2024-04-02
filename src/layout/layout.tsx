@@ -16,7 +16,6 @@ const Column = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
 `;
@@ -51,9 +50,9 @@ const ContentLeft = styled.div`
   padding-left: 20px;
   padding-top: 30px;
   color: white;
-  font-family: Helvetica, Arial, sans-serif;
   font-size: 25px;
 `;
+
 
 export default function Layout({ title, children }: ILayout) {
   const [firstChild, secondChild] = React.Children.toArray(children);
