@@ -7,79 +7,8 @@ import Modal from "./common/modal";
 import { ITask } from "@/interfaces/interfaces";
 import TaskForm from "./taskForm";
 import { MdOutlinePlaylistAddCircle } from "react-icons/md";
-
-let initialDataObj = [
-  {
-      id:1,
-      taskType: "B",
-      title: "Title 1",
-      status: "P",
-      assignee: "Pippo"
-  },
-  {
-      id:2,
-      taskType: "T",
-      title: "Title 2",
-      status: "D",
-      assignee: "Pluto"
-  },
-  {
-      id:3,
-      taskType: "B",
-      title: "Title 3",
-      status: "P",
-      assignee: "Pippo"
-  },
-  {
-      id:4,
-      taskType: "T",
-      title: "Title 4",
-      status: "T",
-      assignee: "Pluto"
-  },
-  {
-      id:5,
-      taskType: "B",
-      title: "Title 5",
-      status: "T",
-      assignee: "Pippo"
-  },
-  {
-      id:6,
-      taskType: "TASK",
-      title: "Title 6",
-      status: "D",
-      assignee: "Pluto"
-  },
-  {
-      id:7,
-      taskType: "B",
-      title: "Title 7",
-      status: "P",
-      assignee: "Pippo"
-  },
-  {
-      id:8,
-      taskType: "T",
-      title: "Title 8",
-      status: "D",
-      assignee: "Pluto"
-  },
-  {
-      id:9,
-      taskType: "B",
-      title: "Title 9",
-      status: "T",
-      assignee: "Pippo"
-  },
-  {
-      id:10,
-      taskType: "T",
-      title: "Title 10",
-      status: "D",
-      assignee: "Pluto"
-  },
-];
+import ConfirmDeleteModal from "./common/confirmDeleteModal";
+import { getTasks } from "@/api/getTasks";
 
 const arrActions = [
   {
@@ -98,9 +27,19 @@ export default function ContentLogic() {
   const [dataId, setDataId] = useState<number|undefined>();
   const [data, setData] = useState<ITask[]>([]);
   const [taskToUpdate, setTaskToUpdate] = useState<ITask>();
+  const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
+
   useEffect(()=>{
-    //TODO: GET DATA API CALL
-    setData(initialDataObj);
+    const fetchData = async () => {
+      try {
+        const initialData = await getTasks();
+        setData(initialData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   },[])
   
   const setModalAndAction: (isOpen: boolean, actionType: string, dataId?: number) => void = (isOpen, actionType, dataId)=> {
@@ -110,11 +49,18 @@ export default function ContentLogic() {
     setDataId(dataId);
   }
 
-  const deleteTask: (id: number) => void = (id)=>{
-    const newData = data.filter((o)=> o.id !== id)
-    setData(newData);
-    //TODO: DELETE DATA API CALL
-  }
+  const deleteTask = (id: number|undefined) => {
+    if (confirmDelete) {
+      setConfirmDelete(false);
+      const newData = data.filter((o) => o.id !== id);
+      setData(newData);
+      //TODO: DELETE DATA API CALL
+    } else {
+      setDataId(id);
+      setConfirmDelete(true);
+    }
+  };
+
 
   const addTask: (task: ITask) => void = (task)=>{
     data.push(task);
@@ -166,6 +112,12 @@ export default function ContentLogic() {
                   >
                     <TaskForm taskToUpdate={taskToUpdate}  handleSubmit={handleSubmit}/>
                   </Modal>}
+      {confirmDelete && (
+        <ConfirmDeleteModal 
+          onCancel={() => setConfirmDelete(false)}
+          onConfirm={() => deleteTask(dataId)}
+        />
+      )}
     </>
   );
 }

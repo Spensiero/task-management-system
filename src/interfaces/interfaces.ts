@@ -48,5 +48,9 @@ export interface ITaskForm {
     handleSubmit: (data: ITask)=> void;
     taskToUpdate?: ITask | undefined;
 }
+export interface IConfirmDeleteModal{
+    onCancel: ()=> void;
+    onConfirm: ()=> void;
+}
 
   
