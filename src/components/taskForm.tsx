@@ -75,7 +75,7 @@ const TaskForm = ({ handleSubmit, taskToUpdate }: ITaskForm) => {
         <StyledForm>
           <FormGroup>
             <StyledLabel htmlFor="title">Title:</StyledLabel>
-            <StyledField onBlur={(e) => e.target.blur()} type="text" id="title" name="title" error={errors.title && touched.title} />
+            <StyledField onBlur={(e: React.FocusEvent<HTMLInputElement>) => e.target.blur()} type="text" id="title" name="title" error={errors.title && touched.title} />
             {errors.title && touched.title && <ErrorMessage>{errors.title}</ErrorMessage>}
           </FormGroup>
           <RowWrapper>
