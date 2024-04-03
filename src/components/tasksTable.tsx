@@ -23,12 +23,14 @@ export default function TasksTable({setModalAndAction, data, deleteTask}: ITasks
       accessorKey: 'title',
       header: 'Title',
       size: 200,
+      // @ts-ignore 
       Cell: ({ cell }) => <span>{cell.getValue()}</span>,
     },
     {
       accessorKey: 'taskType',
       header: 'Type',
       size: 70,
+      // @ts-ignore 
       Cell: ({ cell }) => {
         let iconToShow;
         switch (cell.row.original.taskType) {
@@ -49,6 +51,7 @@ export default function TasksTable({setModalAndAction, data, deleteTask}: ITasks
       accessorKey: 'status',
       header: 'Status',
       size: 70,
+      // @ts-ignore 
       Cell: ({ cell }) => {
         let iconToShow;
         switch (cell.row.original.status) {
@@ -72,11 +75,13 @@ export default function TasksTable({setModalAndAction, data, deleteTask}: ITasks
       accessorKey: 'assignee',
       header: 'Assignee',
       size: 200,
+      // @ts-ignore 
       Cell: ({ cell }) => <span>{cell.getValue()}</span>,
     },
     {
       header: 'Actions',
       size: 50,
+      // @ts-ignore 
       Cell: ({ cell }) => 
           <>
             <Button title="Update" onClick={()=> setModalAndAction(true, "U", cell.row.original.id)}><RxUpdate/></Button>
@@ -86,6 +91,7 @@ export default function TasksTable({setModalAndAction, data, deleteTask}: ITasks
   ];
 
   return (
+    // @ts-ignore 
     <Table data={data} columns={columns}/>
   );
 }
