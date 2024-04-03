@@ -1,6 +1,6 @@
 import { ElementType, ReactElement, ReactEventHandler, ReactNode } from "react";
 export interface ITask {
-    id: number;
+    id?: number;
     taskType: string;
     title: string;
     status: string;
@@ -46,6 +46,7 @@ export interface ITasksTable {
 }
 export interface ITaskForm {
     handleSubmit: (data: ITask)=> void;
+    taskToUpdate?: ITask | undefined;
 }
 
   

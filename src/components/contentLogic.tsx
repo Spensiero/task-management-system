@@ -97,6 +97,7 @@ export default function ContentLogic() {
   const [actionType, setActionType] = useState<string>("C");
   const [dataId, setDataId] = useState<number|undefined>();
   const [data, setData] = useState<ITask[]>([]);
+  const [taskToUpdate, setTaskToUpdate] = useState<ITask>();
   useEffect(()=>{
     //TODO: GET DATA API CALL
     setData(initialDataObj);
@@ -104,6 +105,7 @@ export default function ContentLogic() {
   
   const setModalAndAction: (isOpen: boolean, actionType: string, dataId?: number) => void = (isOpen, actionType, dataId)=> {
     setActionType(actionType);
+    actionType == "C" ? setTaskToUpdate(undefined) : setTaskToUpdate(data.find((o)=> o.id == dataId));
     setIsOpen(isOpen);
     setDataId(dataId);
   }
@@ -118,10 +120,16 @@ export default function ContentLogic() {
     data.push(task);
     const newData = [...data]
     setData(newData);
+    setIsOpen(false);
     //TODO: CREATE DATA API CALL
   }
 
   const updateTask: (task: ITask) => void = (task)=>{
+    const elementIndex = data.findIndex(item => item.id === task.id);
+    data[elementIndex] = task;
+    const newData = [...data]
+    setData(newData);
+    setIsOpen(false);
     //TODO: UPDATE DATA API CALL
   }
 
@@ -156,7 +164,7 @@ export default function ContentLogic() {
                     actionType={actionType} 
                     onCloseModal={()=> setModalAndAction(false,"C")}
                   >
-                    <TaskForm handleSubmit={handleSubmit}/>
+                    <TaskForm taskToUpdate={taskToUpdate}  handleSubmit={handleSubmit}/>
                   </Modal>}
     </>
   );

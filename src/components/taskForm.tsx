@@ -1,20 +1,20 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import styled from '@emotion/styled';
-import * as Yup from 'yup'; // Importa Yup
+import * as Yup from 'yup';
 import CommonButton from "./common/commonButton";
-import { ITaskForm } from "@/interfaces/interfaces";
+import { ITask, ITaskForm } from "@/interfaces/interfaces";
 
-const initialValues = {
+const initialValues: ITask = {
   title: "",
-  type: "",
-  status: "to do",
+  taskType: "",
+  status: "T",
   assignee: ""
 };
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required("Required"),
-  type: Yup.string().required("Required"),
+  taskType: Yup.string().required("Required"),
   status: Yup.string().required("Required"),
   assignee: Yup.string().required("Required"),
 });
@@ -28,7 +28,13 @@ const FormGroup = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  position: relative;
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  position: absolute;
+  top: -20px;
 `;
 
 const StyledLabel = styled.label`
@@ -40,6 +46,7 @@ const StyledField = styled(Field)`
   padding: 10px;
   border: 1px solid ${({ error }) => (error ? "red" : "#ccc")};
   border-radius: 5px;
+  margin-bottom: 5px;
 `;
 
 const StyledSelect = styled(Field)`
@@ -47,6 +54,7 @@ const StyledSelect = styled(Field)`
   padding: 10px;
   border: 1px solid ${({ error }) => (error ? "red" : "#ccc")};
   border-radius: 5px;
+  margin-bottom: 5px;
 `;
 
 const RowWrapper = styled.div`
@@ -56,47 +64,43 @@ const RowWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
   margin-top: 20px;
 `;
 
-const ErrorMessage = styled.div`
-  color: red;
-`;
-
-const TaskForm = ({ handleSubmit }: ITaskForm) => {
+const TaskForm = ({ handleSubmit, taskToUpdate }: ITaskForm) => {
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
+    <Formik initialValues={taskToUpdate ? taskToUpdate : initialValues} onSubmit={handleSubmit}>
       {({ errors, touched }) => (
         <StyledForm>
           <FormGroup>
             <StyledLabel htmlFor="title">Title:</StyledLabel>
-            <StyledField type="text" id="title" name="title" error={errors.title && touched.title} />
+            <StyledField onBlur={(e) => e.target.blur()} type="text" id="title" name="title" error={errors.title && touched.title} />
             {errors.title && touched.title && <ErrorMessage>{errors.title}</ErrorMessage>}
           </FormGroup>
           <RowWrapper>
             <FormGroup>
               <StyledLabel htmlFor="type">Type:</StyledLabel>
-              <StyledSelect as="select" id="type" name="type" error={errors.type && touched.type}>
+              <StyledSelect onBlur={(e) => e.target.blur()} as="select" id="type" name="taskType" error={errors.taskType && touched.taskType}>
                 <option value="">Select...</option>
-                <option value="bug">Bug</option>
-                <option value="task">Task</option>
+                <option value="B">Bug</option>
+                <option value="T">Task</option>
               </StyledSelect>
-              {errors.type && touched.type && <ErrorMessage>{errors.type}</ErrorMessage>}
+              {errors.taskType && touched.taskType && <ErrorMessage>{errors.taskType}</ErrorMessage>}
             </FormGroup>
             <FormGroup style={{ marginLeft: '10px', marginRight: '10px' }}>
               <StyledLabel htmlFor="status">Status:</StyledLabel>
-              <StyledSelect as="select" id="status" name="status" error={errors.status && touched.status}>
+              <StyledSelect onBlur={(e) => e.target.blur()} as="select" id="status" name="status" error={errors.status && touched.status}>
                 <option value="">Select...</option>
-                <option value="to do">To Do</option>
-                <option value="progress">Progress</option>
-                <option value="done">Done</option>
+                <option value="T">To Do</option>
+                <option value="P">Progress</option>
+                <option value="D">Done</option>
               </StyledSelect>
               {errors.status && touched.status && <ErrorMessage>{errors.status}</ErrorMessage>}
             </FormGroup>
             <FormGroup>
               <StyledLabel htmlFor="assignee">Assignee:</StyledLabel>
-              <StyledField type="text" id="assignee" name="assignee" error={errors.assignee && touched.assignee} />
+              <StyledField onBlur={(e) => e.target.blur()} type="text" id="assignee" name="assignee" error={errors.assignee && touched.assignee} />
               {errors.assignee && touched.assignee && <ErrorMessage>{errors.assignee}</ErrorMessage>}
             </FormGroup>
           </RowWrapper>
@@ -115,5 +119,4 @@ const TaskForm = ({ handleSubmit }: ITaskForm) => {
     </Formik>
   );
 };
-
 export default TaskForm;

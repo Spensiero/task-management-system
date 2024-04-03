@@ -26,7 +26,7 @@ const [Child] = React.Children.toArray(children);
   return (
     <ModalWrapper onClick={onCloseModal}>
         <ModalContent onClick={(e) => e.stopPropagation()}>
-        <h2>{arrActions.find((o)=> o.type == actionType)?.label}</h2>
+        <h3>{arrActions.find((o)=> o.type == actionType)?.label}</h3>
         {Child}
         </ModalContent>
     </ModalWrapper>
