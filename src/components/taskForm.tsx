@@ -81,7 +81,7 @@ const TaskForm = ({ handleSubmit, taskToUpdate }: ITaskForm) => {
           <RowWrapper>
             <FormGroup>
               <StyledLabel htmlFor="type">Type:</StyledLabel>
-              <StyledSelect onBlur={(e) => e.target.blur()} as="select" id="type" name="taskType" error={errors.taskType && touched.taskType}>
+              <StyledSelect onBlur={(e: React.FocusEvent<HTMLInputElement>) => e.target.blur()} as="select" id="type" name="taskType" error={errors.taskType && touched.taskType}>
                 <option value="">Select...</option>
                 <option value="B">Bug</option>
                 <option value="T">Task</option>
@@ -90,7 +90,7 @@ const TaskForm = ({ handleSubmit, taskToUpdate }: ITaskForm) => {
             </FormGroup>
             <FormGroup style={{ marginLeft: '10px', marginRight: '10px' }}>
               <StyledLabel htmlFor="status">Status:</StyledLabel>
-              <StyledSelect onBlur={(e) => e.target.blur()} as="select" id="status" name="status" error={errors.status && touched.status}>
+              <StyledSelect onBlur={(e: React.FocusEvent<HTMLInputElement>) => e.target.blur()} as="select" id="status" name="status" error={errors.status && touched.status}>
                 <option value="">Select...</option>
                 <option value="T">To Do</option>
                 <option value="P">Progress</option>
@@ -100,7 +100,7 @@ const TaskForm = ({ handleSubmit, taskToUpdate }: ITaskForm) => {
             </FormGroup>
             <FormGroup>
               <StyledLabel htmlFor="assignee">Assignee:</StyledLabel>
-              <StyledField onBlur={(e) => e.target.blur()} type="text" id="assignee" name="assignee" error={errors.assignee && touched.assignee} />
+              <StyledField onBlur={(e: React.FocusEvent<HTMLInputElement>) => e.target.blur()} type="text" id="assignee" name="assignee" error={errors.assignee && touched.assignee} />
               {errors.assignee && touched.assignee && <ErrorMessage>{errors.assignee}</ErrorMessage>}
             </FormGroup>
           </RowWrapper>
