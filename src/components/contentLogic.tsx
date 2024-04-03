@@ -52,7 +52,7 @@ export default function ContentLogic() {
   const deleteTask = (id: number|undefined) => {
     if (confirmDelete) {
       setConfirmDelete(false);
-      const newData = data.filter((o) => o.id !== id);
+      const newData = data.filter((o) => o.id !== dataId);
       setData(newData);
       //TODO: DELETE DATA API CALL
     } else {
@@ -63,7 +63,11 @@ export default function ContentLogic() {
 
 
   const addTask: (task: ITask) => void = (task)=>{
-    data.push(task);
+    if (data.length > 0) {
+      const maxId = Math.max(...data.map(obj => obj.id));
+      task.id = maxId + 1;
+    };
+    data.unshift(task);
     const newData = [...data]
     setData(newData);
     setIsOpen(false);

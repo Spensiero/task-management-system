@@ -6,6 +6,7 @@ import CommonButton from "./common/commonButton";
 import { ITask, ITaskForm } from "@/interfaces/interfaces";
 
 const initialValues: ITask = {
+  id: 1,
   title: "",
   taskType: "",
   status: "T",
@@ -70,7 +71,7 @@ const ButtonWrapper = styled.div`
 
 const TaskForm = ({ handleSubmit, taskToUpdate }: ITaskForm) => {
   return (
-    <Formik initialValues={taskToUpdate ? taskToUpdate : initialValues} onSubmit={handleSubmit}>
+    <Formik initialValues={taskToUpdate ? taskToUpdate : initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {({ errors, touched }) => (
         <StyledForm>
           <FormGroup>
