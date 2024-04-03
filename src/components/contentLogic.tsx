@@ -64,6 +64,7 @@ export default function ContentLogic() {
 
   const addTask: (task: ITask) => void = (task)=>{
     if (data.length > 0) {
+      // @ts-ignore 
       const maxId = Math.max(...data.map(obj => obj.id));
       task.id = maxId + 1;
     };
