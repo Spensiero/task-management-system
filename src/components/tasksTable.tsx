@@ -13,7 +13,7 @@ const Button = styled.button<{ isRed?: boolean }>`
   background: none;
   padding: 0;
   cursor: pointer;
-  margin-left:20px;
+  margin-right:20px;
   color: ${({ isRed }) => (isRed ? "red" : "inherit")};
 `;
 

@@ -11,7 +11,7 @@ const ModalWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 1000;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -59,8 +59,8 @@ const ConfirmDeleteModal = ({ onCancel, onConfirm }: IConfirmDeleteModal) => {
       <ConfirmationDialog>
         <Message>Are you sure you want to delete this item?</Message>
         <ButtonWrapper>
-          <CancelButton onClick={onCancel}>Cancel</CancelButton>
           <Button onClick={onConfirm}>Confirm</Button>
+          <CancelButton onClick={onCancel}>Cancel</CancelButton>
         </ButtonWrapper>
       </ConfirmationDialog>
     </ModalWrapper>
